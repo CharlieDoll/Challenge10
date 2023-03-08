@@ -39,6 +39,7 @@ function managerQuestions() {
       );
       teamArray.push(newManager);
       console.log(teamArray);
+      mainMenu();
     })
     .catch((error) => {
       if (error.isTtyError) {
@@ -50,13 +51,41 @@ function managerQuestions() {
 }
 
 managerQuestions();
-// inquirer - ask q's
-//
 
-// jared - Manager ID1 jared@fakemail.com
-// alec - engineer ID 2 alec@fakemail.com
-// Grace - engineer ID 3 grace@fakemail.com
-// Tammer - Engineer ID4 tammer@fakemail.com
-// John - - Intern ID5 john@fakemail.com
+function mainMenu() {
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        name: "options",
+        message: "Would you like to add another team member?",
+        choices: ["Engineer", "Intern", "Finish Building Your Team"],
+      },
+    ])
+    .then((answers) => {
+      if (answers.options === "Engineer") {
+        console.log("if Engineer chosen");
+        createEngineer();
+      }
+      if (answers.options === "Intern") {
+        console.log("If Intern chosen");
+        createIntern();
+      }
+      if (answers.options === "Finish Building Your Team") {
+        console.log("Finish Building Team");
+      }
+    })
+    .catch((error) => {
+      if (error.isTtyError) {
+        // Prompt couldn't be rendered in the current environment
+      } else {
+        // Something else went wrong
+      }
+    });
+}
 
-// name/ position/ ID no./ email/
+function createEngineer() {
+  // ask qs about engineer - use manager ex.
+}
+
+function createIntern() {}
