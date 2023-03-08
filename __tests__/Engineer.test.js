@@ -40,5 +40,9 @@ describe("Engineer", () => {
       );
       expect(findGithub.getGithub()).toEqual("github.com/john");
     });
+    it("Find engineer", () => {
+      const findEngineer = new Engineer("John", 127, "john@email.com");
+      expect(findEngineer.getRole()).toEqual("engineer");
+    });
   });
 });
