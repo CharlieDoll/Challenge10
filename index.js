@@ -5,6 +5,51 @@ const Intern = require("./lib/Intern");
 const fs = require("fs");
 let teamArray = [];
 
+function managerQuestions() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "managerName",
+        message: "What is the Managers Name?",
+      },
+      {
+        type: "input",
+        name: "employeeID",
+        message: "What is the employee's ID?",
+      },
+      {
+        type: "input",
+        name: "email",
+        message: "What is their email address?",
+      },
+      {
+        type: "input",
+        name: "officeNumber",
+        message: "What is their office number?",
+      },
+    ])
+    .then((answers) => {
+      //   console.log(answers);
+      const newManager = new Manager(
+        answers.managerName,
+        answers.employeeID,
+        answers.email,
+        answers.officeNumber
+      );
+      teamArray.push(newManager);
+      console.log(teamArray);
+    })
+    .catch((error) => {
+      if (error.isTtyError) {
+        // Prompt couldn't be rendered in the current environment
+      } else {
+        // Something else went wrong
+      }
+    });
+}
+
+managerQuestions();
 // inquirer - ask q's
 //
 
