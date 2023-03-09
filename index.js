@@ -151,7 +151,7 @@ function mainMenu() {
         },
         {
           type: "input",
-          name: "ointernSchool",
+          name: "internSchool",
           message: "Which school did they attend?",
         },
       ])
@@ -175,8 +175,93 @@ function mainMenu() {
         }
       });
   }
+
+  const html = `
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Employee Database</title>
+    </head>
+    <body>
+      <h1>Team Members</h1>
+      <div>
+      <h2>${teamMember.getRole()}</h2>
+      <p>ID: ${teamMember.getID()}</p>
+      <p>Name: ${teamMember.getName()}:</p>
+      <p>Email: ${teamMember.getEmail()} </p>
+      <p>Office: ${teamMember.getOffice()}</p>
+    </div>
+    <div>
+          <h2>${teamMember.getRole()}</h2>
+          <p>Name: ${teamMember.getName()}:</p>
+          <p>ID: ${teamMember.getID()}</p>
+          <p>Email: ${teamMember.getEmail()} </p>
+          <p>GitHub: ${teamMember.getGithub()}</p>
+        </div>
+        <div>
+          <h2>${teamMember.getRole()}</h2>
+          <p>Name: ${teamMember.getName()}:</p>
+          <p>ID: ${teamMember.getID()}</p>
+          <p>Email: ${teamMember.getEmail()} </p>
+          <p>School: ${teamMember.getSchool()}</p>
+        </div>
+      <script src="../index.js"></script>
+    </body>
+  </html>
+  `;
+
+  function createHtmlContent() {
+    let htmlContent = "";
+    teamArray.forEach((teamMember) => {
+      if (teamMember instanceof Manager) {
+        const teamMemberHtml = `
+        <div>
+          <h2>${teamMember.getRole()}</h2>
+          <p>ID: ${teamMember.getID()}</p>
+          <p>Name: ${teamMember.getName()}:</p>
+          <p>Email: ${teamMember.getEmail()} </p>
+          <p>Office: ${teamMember.getOffice()}</p>
+        </div>
+          `;
+
+        htmlContent += teamMemberHtml;
+      }
+
+      if (teamMember instanceof Engineer) {
+        const teamMemberHtml = `
+        <div>
+          <h2>${teamMember.getRole()}</h2>
+          <p>Name: ${teamMember.getName()}:</p>
+          <p>ID: ${teamMember.getID()}</p>
+          <p>Email: ${teamMember.getEmail()} </p>
+          <p>GitHub: ${teamMember.getGithub()}</p>
+        </div>
+          `;
+
+        htmlContent += teamMemberHtml;
+      }
+
+      if (teamMember instanceof Intern) {
+        const teamMemberHtml = `
+        <div>
+          <h2>${teamMember.getRole()}</h2>
+          <p>Name: ${teamMember.getName()}:</p>
+          <p>ID: ${teamMember.getID()}</p>
+          <p>Email: ${teamMember.getEmail()} </p>
+          <p>School: ${teamMember.getSchool()}</p>
+        </div>
+          `;
+
+        htmlContent += teamMemberHtml;
+      }
+    });
+  }
+
   htmlPrint = () => {
-    fs.writeFile("./public/index.html", htmlContent, (err) =>
+    fs.writeFile("./public/newindex.html", htmlContent, (err) =>
       err ? console.error(err) : console.log("Employee information saved!")
     );
   };
