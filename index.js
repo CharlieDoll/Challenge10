@@ -30,7 +30,6 @@ function managerQuestions() {
       },
     ])
     .then((answers) => {
-      //   console.log(answers);
       const newManager = new Manager(
         answers.managerName,
         answers.employeeID,
@@ -73,6 +72,7 @@ function mainMenu() {
       }
       if (answers.options === "Finish Building Your Team") {
         console.log("Finish Building Team");
+        createHtmlContent();
       }
     })
     .catch((error) => {
@@ -176,43 +176,6 @@ function mainMenu() {
       });
   }
 
-  const html = `
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Employee Database</title>
-    </head>
-    <body>
-      <h1>Team Members</h1>
-      <div>
-      <h2>${teamMember.getRole()}</h2>
-      <p>ID: ${teamMember.getID()}</p>
-      <p>Name: ${teamMember.getName()}:</p>
-      <p>Email: ${teamMember.getEmail()} </p>
-      <p>Office: ${teamMember.getOffice()}</p>
-    </div>
-    <div>
-          <h2>${teamMember.getRole()}</h2>
-          <p>Name: ${teamMember.getName()}:</p>
-          <p>ID: ${teamMember.getID()}</p>
-          <p>Email: ${teamMember.getEmail()} </p>
-          <p>GitHub: ${teamMember.getGithub()}</p>
-        </div>
-        <div>
-          <h2>${teamMember.getRole()}</h2>
-          <p>Name: ${teamMember.getName()}:</p>
-          <p>ID: ${teamMember.getID()}</p>
-          <p>Email: ${teamMember.getEmail()} </p>
-          <p>School: ${teamMember.getSchool()}</p>
-        </div>
-      <script src="../index.js"></script>
-    </body>
-  </html>
-  `;
-
   function createHtmlContent() {
     let htmlContent = "";
     teamArray.forEach((teamMember) => {
@@ -258,11 +221,33 @@ function mainMenu() {
         htmlContent += teamMemberHtml;
       }
     });
-  }
 
-  htmlPrint = () => {
-    fs.writeFile("./public/newindex.html", htmlContent, (err) =>
-      err ? console.error(err) : console.log("Employee information saved!")
-    );
-  };
+    const html = `
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Employee Database</title>
+    </head>
+    <body>
+      <h1>Team Members</h1>
+      <div>
+      ${htmlContent}
+      </div>
+    </body>
+  </html>
+  `;
+
+    console.log("HTML is", html);
+
+    htmlPrint = () => {
+      fs.writeFile("./public/index.html", html, (err) =>
+        err ? console.error(err) : console.log("Employee information saved!")
+      );
+    };
+
+    htmlPrint();
+  }
 }
