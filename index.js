@@ -175,19 +175,9 @@ function mainMenu() {
         }
       });
   }
+  htmlPrint = () => {
+    fs.writeFile("./public/index.html", htmlContent, (err) =>
+      err ? console.error(err) : console.log("Employee information saved!")
+    );
+  };
 }
-// TODO: Create a function to write README file
-function writeToFile(fileName, data) {
-  return fs.writeFileSync(path.join(process.cwd(), fileName), data);
-}
-
-// TODO: Create a function to initialize app
-function init() {
-  inquirer.prompt(questions).then((answers) => {
-    console.log(generateMarkdown(answers));
-    writeToFile("index.html", generateMarkdown({ ...answers }));
-  });
-}
-
-// Function call to initialize app
-init();
